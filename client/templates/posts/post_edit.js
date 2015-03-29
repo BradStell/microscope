@@ -11,15 +11,21 @@ Template.postEdit.events({
         var postProperties = {
             url: $(e.target).find('[name=url]').val(),
             title: $(e.target).find('[name=title]').val()
-        }
+        };
 
-        Posts.update(currentPostId, {$set: postProperties}, function (error) {
-            if (error)
+        var postWithSameLink = Posts.findOne({url: postProperties.url});
+        if (postWithSameLink) {
+            alert("Link already exists.");
+            Router.go('postPage', {_id: postWithSameLink._id});
+        } else {
+            Posts.update(currentPostId, {$set: postProperties}, function (error) {
+                if (error)
                 //display the error to the user
-                alert(error.reason);
-            else
-                Router.go('postPage', {_id: currentPostId});
-        });
+                    alert(error.reason);
+                else
+                    Router.go('postPage', {_id: currentPostId});
+            });
+        }
     },
 
     'click .delete': function(e) {
