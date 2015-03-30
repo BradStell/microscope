@@ -1,9 +1,13 @@
 /**
  * Created by brad on 3/29/15.
+ *
+ * The Template helpers and events (right now just events) associated with the 'postEdit' template
  */
 Template.postEdit.events({
 
+    // When the submit button gets pressed on the postEdit template
     'submit form': function(e) {
+        // prevent the default behavior from occuring on the click event ????
         e.preventDefault();
 
         // this holds the current information of the object being iterated over in the template {{yield}}
